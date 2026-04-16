@@ -1,0 +1,36 @@
+{
+  "extends": "@react-native/typescript-config",
+ "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@features/*": [
+        "src/features/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@api/*": [
+        "src/api/*"
+      ],
+      "@navigation/*": [
+        "src/navigation/*"
+      ],
+      "@types/*": [
+        "src/shared/types/*"
+      ]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/node_modules", "**/Pods"]
+}
