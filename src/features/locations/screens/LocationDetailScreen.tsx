@@ -1,3 +1,8 @@
+/**
+ * @file features/locations/screens/LocationDetailScreen.tsx
+ * @description Location detail — hero section, type/dimension info, and resident avatar grid.
+ * Residents are batch-fetched by extracting character IDs from resident URLs.
+ */
 import React, { useCallback } from 'react';
 import { ActivityIndicator, ScrollView, StatusBar, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';

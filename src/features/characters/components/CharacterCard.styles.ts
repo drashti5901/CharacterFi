@@ -18,6 +18,15 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.md,
     marginHorizontal: Spacing.md,
     marginVertical: Spacing.xs,
+    // Shadow — no overflow:hidden here so shadows render on iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25, // runtime-animated
+    shadowRadius: 8,     // runtime-animated
+    elevation: 8,        // runtime-animated on Android
+  },
+  cardInner: {
+    borderRadius: BorderRadius.md,
     overflow: 'hidden',
   },
   pressable: {

@@ -1,3 +1,8 @@
+/**
+ * @file navigation/RootNavigator.tsx
+ * @description App root navigator — composes the bottom tab bar and
+ * delegates each tab to its own feature stack navigator.
+ */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

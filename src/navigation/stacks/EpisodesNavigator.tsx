@@ -1,3 +1,8 @@
+/**
+ * @file navigation/stacks/EpisodesNavigator.tsx
+ * @description Native stack navigator for the Episodes tab.
+ * Route: EpisodeList → EpisodeDetail.
+ */
 import React, { Suspense } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { EpisodesStackParamList } from '../../shared/types/navigation';

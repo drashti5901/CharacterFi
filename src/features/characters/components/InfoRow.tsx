@@ -1,3 +1,8 @@
+/**
+ * @file features/characters/components/InfoRow.tsx
+ * @description Single label + value row used in CharacterDetailScreen.
+ * Returns null when the value is empty or 'n/a' to hide unknown fields.
+ */
 import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './InfoRow.styles';

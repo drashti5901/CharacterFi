@@ -1,3 +1,7 @@
+/**
+ * @file features/favourites/components/FavouritesEmptyState.tsx
+ * @description Empty state placeholder shown when the favourites list has no saved characters.
+ */
 import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './FavouritesEmptyState.styles';

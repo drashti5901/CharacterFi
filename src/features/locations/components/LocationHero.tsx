@@ -1,3 +1,7 @@
+/**
+ * @file features/locations/components/LocationHero.tsx
+ * @description Hero section (back button + emoji icon + name) at the top of LocationDetailScreen.
+ */
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { Location } from '../../../shared/types/api';

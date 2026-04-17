@@ -1,3 +1,8 @@
+/**
+ * @file features/characters/screens/CharacterDetailScreen.tsx
+ * @description Character detail screen — info rows, episode chips with navigation,
+ * and a favourite toggle that persists to SQLite via Redux.
+ */
 import React, { useCallback } from 'react';
 import {
   ActivityIndicator,
@@ -8,20 +13,31 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { CharactersStackParamList } from '../../../shared/types/navigation';
 import type { Episode } from '../../../shared/types/api';
 import { useCharacterDetail } from '../hooks/useCharacterDetail';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addFavourite, removeFavourite, toggleFavouriteOptimistic } from '../../../store/favouritesSlice';
 import ProgressiveImage from '../../../shared/components/ProgressiveImage';
 import ErrorState from '../../../shared/components/ErrorState';
+import Animated from 'react-native-reanimated';
 import { Colors } from '../../../shared/utils/theme';
 import { EpisodeCard, EpisodeSkeleton } from '../components/EpisodeCard';
 import InfoRow from '../components/InfoRow';
 import styles, { AVATAR_SIZE } from './CharacterDetailScreen.styles';
 
-type Props = NativeStackScreenProps<CharactersStackParamList, 'CharacterDetail'>;
+/**
+ * Minimal structural navigation type satisfied by both CharactersStack and FavouritesStack.
+ * Only the routes actually called by this screen are declared.
+ */
+interface CharacterDetailNavigation {
+  navigate(route: 'EpisodeDetail', params: { episodeId: number; episodeName: string }): void;
+  goBack(): void;
+}
+
+interface Props {
+  navigation: CharacterDetailNavigation;
+  route: { key: string; name: string; params: { characterId: number } };
+}
 
 const STATUS_COLOR: Record<string, string> = {
   Alive: Colors.alive,
@@ -98,12 +114,14 @@ const CharacterDetailScreen = ({ navigation, route }: Props) => {
       >
         {/* Hero */}
         <View style={styles.hero}>
-          <ProgressiveImage
-            uri={character.image}
-            width={AVATAR_SIZE}
-            height={AVATAR_SIZE}
-            style={styles.avatar}
-          />
+          <Animated.View sharedTransitionTag={`char-avatar-${characterId}`}>
+            <ProgressiveImage
+              uri={character.image}
+              width={AVATAR_SIZE}
+              height={AVATAR_SIZE}
+              style={styles.avatar}
+            />
+          </Animated.View>
           <Text style={styles.characterName}>{character.name}</Text>
           <View style={styles.statusRow}>
             <View style={[styles.statusDot, { backgroundColor: statusColor }]} />

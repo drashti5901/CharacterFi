@@ -1,3 +1,8 @@
+/**
+ * @file features/episodes/components/EpisodeCard.tsx
+ * @description Episode list row (EpisodeCard), season divider (SectionHeader),
+ * and animated shimmer skeleton (SkeletonEpisodeCard) used in EpisodeListScreen.
+ */
 import React, { useEffect, useRef } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import type { Episode } from '../../../shared/types/api';

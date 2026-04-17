@@ -1,3 +1,8 @@
+/**
+ * @file features/locations/components/ResidentAvatarGrid.tsx
+ * @description Grid of resident character avatars on LocationDetailScreen.
+ * Exports ResidentAvatarGrid (full grid), SkeletonAvatarItem (loading tile).
+ */
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { Character } from '../../../shared/types/api';
@@ -32,7 +37,7 @@ const ResidentAvatar = ({
         uri={character.image}
         width={80}
         height={80}
-        style={{ width: '100%' as any, height: undefined, aspectRatio: 1 }}
+        style={{ width: '100%', height: undefined, aspectRatio: 1 }}
       />
     </View>
     <Text style={styles.avatarName} numberOfLines={1}>

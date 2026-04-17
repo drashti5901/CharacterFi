@@ -1,5 +1,11 @@
+/**
+ * @file navigation/stacks/FavouritesNavigator.tsx
+ * @description Native stack navigator for the Favourites tab.
+ * Route: FavouritesList → FavouriteDetail → EpisodeDetail.
+ */
 import React, { Suspense } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { FavouritesStackParamList } from '../../shared/types/navigation';
 import { ScreenFallback } from '../ScreenFallback';
 import {
@@ -23,8 +29,11 @@ const FavouritesNavigator = () => {
       <Stack.Screen name="FavouriteDetail" options={{ title: 'Character' }}>
         {(props) => (
           <Suspense fallback={<ScreenFallback />}>
-            {/* Reuses CharacterDetailScreen — params shape is identical */}
-            <CharacterDetailScreen {...(props as any)} />
+            {/* Reuses CharacterDetailScreen — structural Props type accepts both stacks */}
+            <CharacterDetailScreen
+              navigation={props.navigation}
+              route={{ ...props.route, name: 'CharacterDetail' }}
+            />
           </Suspense>
         )}
       </Stack.Screen>

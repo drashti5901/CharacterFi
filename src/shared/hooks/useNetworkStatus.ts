@@ -1,3 +1,8 @@
+/**
+ * @file shared/hooks/useNetworkStatus.ts
+ * @description Subscribes to NetInfo and returns the current connectivity state.
+ * Returns `true` (online), `false` (offline), or `null` (not yet determined).
+ */
 import { useEffect, useState } from 'react';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 

@@ -5,7 +5,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, StyleSheet, ViewStyle } from 'react-native';
+import { Animated, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import styles from './ProgressiveImage.styles';
 
 interface ProgressiveImageProps {
@@ -16,7 +16,7 @@ interface ProgressiveImageProps {
   /** Height of the image */
   height: number;
   /** Optional additional container style */
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**

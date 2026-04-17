@@ -1,3 +1,8 @@
+/**
+ * @file navigation/lazyScreens.ts
+ * @description Central source of all React.lazy screen imports.
+ * Consumed by each stack navigator to enable Suspense-based code splitting.
+ */
 import { lazy } from 'react';
 
 // Characters

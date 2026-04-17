@@ -1,3 +1,7 @@
+/**
+ * @file features/locations/components/LocationInfoSection.tsx
+ * @description Details card showing type, dimension, and resident count on LocationDetailScreen.
+ */
 import React from 'react';
 import { Text, View } from 'react-native';
 import type { Location } from '../../../shared/types/api';

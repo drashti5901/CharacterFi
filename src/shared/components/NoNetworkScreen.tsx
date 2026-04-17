@@ -1,3 +1,8 @@
+/**
+ * @file shared/components/NoNetworkScreen.tsx
+ * @description Full-screen animated overlay displayed when the device has no internet.
+ * Fades in/out via Animated and renders above the navigator without unmounting tabs.
+ */
 import React, { useEffect, useRef } from 'react';
 import {
   Animated,

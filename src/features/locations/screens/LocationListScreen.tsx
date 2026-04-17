@@ -1,3 +1,8 @@
+/**
+ * @file features/locations/screens/LocationListScreen.tsx
+ * @description Paginated list of all 126 locations with name, type badge, and dimension.
+ * Includes a hide-on-scroll animated header and animated skeleton loading state.
+ */
 import React, { useCallback, useMemo, useRef } from 'react';
 import { ActivityIndicator, Animated, StatusBar, Text, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';

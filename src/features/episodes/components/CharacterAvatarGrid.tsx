@@ -1,3 +1,8 @@
+/**
+ * @file features/episodes/components/CharacterAvatarGrid.tsx
+ * @description Grid of character avatar tiles shown on EpisodeDetailScreen.
+ * Exports CharacterAvatarItem (tappable) and SkeletonAvatarItem (loading state).
+ */
 import React, { useRef } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { Character } from '../../../shared/types/api';
@@ -23,7 +28,7 @@ export const CharacterAvatarItem = ({ character, onPress }: CharacterAvatarItemP
           uri={character.image}
           width={size.current ?? 80}
           height={size.current ?? 80}
-          style={{ width: '100%' as any, height: undefined, aspectRatio: 1 }}
+        style={{ width: '100%', height: undefined, aspectRatio: 1 }}
         />
       </View>
       <Text style={styles.avatarName} numberOfLines={1}>

@@ -1,3 +1,8 @@
+/**
+ * @file navigation/stacks/CharactersNavigator.tsx
+ * @description Native stack navigator for the Characters tab.
+ * Route: CharacterList → CharacterDetail → EpisodeDetail.
+ */
 import React, { Suspense } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { CharactersStackParamList } from '../../shared/types/navigation';

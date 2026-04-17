@@ -1,3 +1,8 @@
+/**
+ * @file shared/components/ErrorState.tsx
+ * @description Generic error UI with a retry button used across all screens.
+ * Accepts an optional paddingTop for safe area compensation and a custom message.
+ */
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './ErrorState.styles';

@@ -1,3 +1,8 @@
+/**
+ * @file features/episodes/components/EpisodeHero.tsx
+ * @description Animated hero banner at the top of EpisodeDetailScreen.
+ * Contains back button, episode code badge, title, air date, and character count.
+ */
 import React from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import type { Episode } from '../../../shared/types/api';

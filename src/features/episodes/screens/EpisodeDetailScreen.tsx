@@ -1,3 +1,8 @@
+/**
+ * @file features/episodes/screens/EpisodeDetailScreen.tsx
+ * @description Episode detail screen — animated hero banner, air date,
+ * and a grid of character avatars that appeared in the episode.
+ */
 import React, { useCallback, useState } from 'react';
 import {
   ActivityIndicator,

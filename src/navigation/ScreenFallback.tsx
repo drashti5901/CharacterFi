@@ -1,3 +1,8 @@
+/**
+ * @file navigation/ScreenFallback.tsx
+ * @description Suspense fallback rendered while a lazy screen chunk is loading.
+ * Displays a skeleton list over the app background colour.
+ */
 import React from 'react';
 import { View } from 'react-native';
 import { SkeletonList } from '../shared/components/SkeletonCard';

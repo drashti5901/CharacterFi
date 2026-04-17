@@ -1,3 +1,8 @@
+/**
+ * @file features/locations/components/LocationCard.tsx
+ * @description Location list row (LocationCard) with emoji icon, type badge and dimension text.
+ * Also exports SkeletonLocationCard for the loading state.
+ */
 import React, { useEffect, useRef } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import type { Location } from '../../../shared/types/api';

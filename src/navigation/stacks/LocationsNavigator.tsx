@@ -1,3 +1,8 @@
+/**
+ * @file navigation/stacks/LocationsNavigator.tsx
+ * @description Native stack navigator for the Locations tab.
+ * Route: LocationList → LocationDetail.
+ */
 import React, { Suspense } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { LocationsStackParamList } from '../../shared/types/navigation';

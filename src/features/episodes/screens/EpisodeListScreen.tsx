@@ -1,3 +1,8 @@
+/**
+ * @file features/episodes/screens/EpisodeListScreen.tsx
+ * @description Paginated list of all episodes grouped by season.
+ * Season headers are injected as section dividers within the flat FlashList data array.
+ */
 import React, { useCallback, useMemo, useRef } from 'react';
 import {
   ActivityIndicator,
