@@ -129,26 +129,6 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.md,
     paddingBottom: Spacing.sm,
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
-    borderTopWidth: 1,
-    borderTopColor: Colors.border,
-  },
-  rowLabel: {
-    fontSize: FontSize.sm,
-    color: Colors.textMuted,
-    flex: 1,
-  },
-  rowValue: {
-    fontSize: FontSize.sm,
-    color: Colors.textPrimary,
-    flex: 2,
-    textAlign: 'right',
-  },
 
   // ── Episodes strip ────────────────────────────────────────────────────────
   episodesSection: {
@@ -167,38 +147,6 @@ const styles = StyleSheet.create({
     paddingLeft: Spacing.md,
     paddingRight: Spacing.sm,
     paddingBottom: Spacing.sm,
-  },
-  episodeCard: {
-    backgroundColor: Colors.card,
-    borderRadius: BorderRadius.md,
-    padding: Spacing.md,
-    marginRight: Spacing.sm,
-    width: 140,
-    justifyContent: 'space-between',
-  },
-  episodeCode: {
-    fontSize: FontSize.xs,
-    fontWeight: FontWeight.bold as 'bold',
-    color: Colors.primary,
-    marginBottom: Spacing.xs,
-  },
-  episodeName: {
-    fontSize: FontSize.sm,
-    color: Colors.textPrimary,
-    fontWeight: FontWeight.semibold as '600',
-    flexWrap: 'wrap',
-  },
-  episodeDate: {
-    fontSize: FontSize.xs,
-    color: Colors.textMuted,
-    marginTop: Spacing.sm,
-  },
-  episodeSkeletonCard: {
-    backgroundColor: Colors.skeleton,
-    borderRadius: BorderRadius.md,
-    width: 140,
-    height: 90,
-    marginRight: Spacing.sm,
   },
 
   // ── Error / loading states ────────────────────────────────────────────────

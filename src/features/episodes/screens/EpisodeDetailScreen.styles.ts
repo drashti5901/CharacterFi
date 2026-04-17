@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
     textAlign: 'center',
     marginTop: Spacing.xs,
-    numberOfLines: 1,
   },
 
   // ── Skeleton ──────────────────────────────────────────────────────────────

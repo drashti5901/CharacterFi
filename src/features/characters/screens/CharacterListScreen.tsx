@@ -13,6 +13,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Animated,
+  StatusBar,
   Text,
   TextInput,
   TouchableOpacity,
@@ -136,6 +137,7 @@ export default function CharacterListScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={Colors.surface} barStyle="light-content" />
       {/* Animated hide-on-scroll header */}
       <Animated.View
         style={[
@@ -196,5 +198,3 @@ export default function CharacterListScreen({ navigation }: Props) {
     </View>
   );
 }
-
-

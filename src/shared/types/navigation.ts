@@ -17,6 +17,7 @@ export type RootTabParamList = {
 export type CharactersStackParamList = {
   CharacterList: undefined;
   CharacterDetail: { characterId: number };
+  EpisodeDetail: { episodeId: number; episodeName: string };
 };
 
 /** Episodes stack navigator param list */
@@ -35,4 +36,5 @@ export type LocationsStackParamList = {
 export type FavouritesStackParamList = {
   FavouritesList: undefined;
   FavouriteDetail: { characterId: number };
+  EpisodeDetail: { episodeId: number; episodeName: string };
 };

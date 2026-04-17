@@ -4,12 +4,18 @@
  * Uses the typed Axios client — no direct fetch() calls.
  */
 
+import axios from 'axios';
 import apiClient from './client';
 import type {
   Character,
   CharacterFilters,
   PaginatedResponse,
 } from '../shared/types/api';
+
+const EMPTY_PAGE: PaginatedResponse<Character> = {
+  info: { count: 0, pages: 0, next: null, prev: null },
+  results: [],
+};
 
 /**
  * Fetch a paginated list of characters with optional filters.
@@ -28,8 +34,15 @@ export async function fetchCharacters(
   if (filters.species) params.species = filters.species;
   if (filters.gender) params.gender = filters.gender;
 
-  const response = await apiClient.get<PaginatedResponse<Character>>('/character', { params });
-  return response.data;
+  try {
+    const response = await apiClient.get<PaginatedResponse<Character>>('/character', { params });
+    return response.data;
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response?.status === 404) {
+      return EMPTY_PAGE;
+    }
+    throw err;
+  }
 }
 
 /**

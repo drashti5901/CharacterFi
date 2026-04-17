@@ -1,17 +1,5 @@
-/**
- * @file features/locations/screens/LocationListScreen.tsx
- * @description Paginated list of 126 locations with name, type, and dimension.
- * Hide-on-scroll animated header. Tap to open resident avatars.
- */
-
 import React, { useCallback, useMemo, useRef } from 'react';
-import {
-  ActivityIndicator,
-  Animated,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Animated, StatusBar, Text, View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -19,83 +7,14 @@ import type { LocationsStackParamList } from '../../../shared/types/navigation';
 import type { Location } from '../../../shared/types/api';
 import { useLocations } from '../hooks/useLocations';
 import useScrollHeader from '../../../shared/hooks/useScrollHeader';
+import ErrorState from '../../../shared/components/ErrorState';
 import { Colors } from '../../../shared/utils/theme';
+import { LocationCard, SkeletonLocationCard } from '../components/LocationCard';
 import styles from './LocationListScreen.styles';
 
 type Props = NativeStackScreenProps<LocationsStackParamList, 'LocationList'>;
 
-/** Pick an emoji icon based on location type */
-function iconForType(type: string): string {
-  const t = type.toLowerCase();
-  if (t.includes('planet')) return '🪐';
-  if (t.includes('space')) return '🚀';
-  if (t.includes('microverse') || t.includes('miniverse')) return '🔬';
-  if (t.includes('dream')) return '💭';
-  if (t.includes('resort')) return '🏖';
-  if (t.includes('ship') || t.includes('cruiser')) return '🛸';
-  if (t.includes('dimension')) return '🌀';
-  if (t.includes('fantasy')) return '🧙';
-  if (t.includes('cluster')) return '⭐';
-  if (t.includes('hell') || t.includes('prison')) return '🔴';
-  return '📍';
-}
-
-// ── Sub-components ────────────────────────────────────────────────────────────
-
-function LocationCard({
-  location,
-  onPress,
-}: {
-  location: Location;
-  onPress: (l: Location) => void;
-}) {
-  return (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => onPress(location)}
-      activeOpacity={0.75}
-    >
-      <View style={styles.iconBox}>
-        <Text style={styles.locationIcon}>{iconForType(location.type)}</Text>
-      </View>
-      <View style={styles.cardInfo}>
-        <Text style={styles.cardName} numberOfLines={1}>
-          {location.name}
-        </Text>
-        <View style={styles.cardMeta}>
-          {location.type ? (
-            <View style={styles.typeBadge}>
-              <Text style={styles.typeText}>{location.type}</Text>
-            </View>
-          ) : null}
-          <Text style={styles.dimensionText} numberOfLines={1}>
-            {location.dimension || 'Unknown dimension'}
-          </Text>
-        </View>
-      </View>
-      <Text style={styles.cardChevron}>›</Text>
-    </TouchableOpacity>
-  );
-}
-
-function SkeletonLocationCard() {
-  const opacity = useRef(new Animated.Value(0.4)).current;
-  React.useEffect(() => {
-    const anim = Animated.loop(
-      Animated.sequence([
-        Animated.timing(opacity, { toValue: 1, duration: 750, useNativeDriver: true }),
-        Animated.timing(opacity, { toValue: 0.4, duration: 750, useNativeDriver: true }),
-      ]),
-    );
-    anim.start();
-    return () => anim.stop();
-  }, [opacity]);
-  return <Animated.View style={[styles.skeletonCard, { opacity }]} />;
-}
-
-// ── Main screen ───────────────────────────────────────────────────────────────
-
-export default function LocationListScreen({ navigation }: Props) {
+const LocationListScreen = ({ navigation }: Props) => {
   const insets = useSafeAreaInsets();
   const isFetchingRef = useRef(false);
   const { translateY, onScroll, headerHeight } = useScrollHeader();
@@ -139,20 +58,16 @@ export default function LocationListScreen({ navigation }: Props) {
   );
 
   const renderItem = useCallback(
-    ({ item }: { item: Location }) => (
-      <LocationCard location={item} onPress={handlePress} />
-    ),
+    ({ item }: { item: Location }) => <LocationCard location={item} onPress={handlePress} />,
     [handlePress],
   );
 
-  const renderFooter = useCallback(() => {
-    if (!isFetchingNextPage) return null;
-    return (
-      <View style={styles.footerLoader}>
-        <ActivityIndicator color={Colors.primary} size="large" />
-      </View>
-    );
-  }, [isFetchingNextPage]);
+  const renderFooter = useCallback(
+    () => isFetchingNextPage
+      ? <View style={styles.footerLoader}><ActivityIndicator color={Colors.primary} size="large" /></View>
+      : null,
+    [isFetchingNextPage],
+  );
 
   if (isLoading) {
     return (
@@ -162,30 +77,19 @@ export default function LocationListScreen({ navigation }: Props) {
           <Text style={styles.headerSubtitle}>Loading…</Text>
         </View>
         <View style={{ paddingTop: headerHeight }}>
-          {Array.from({ length: 8 }).map((_, i) => (
-            <SkeletonLocationCard key={i} />
-          ))}
+          {Array.from({ length: 8 }).map((_, i) => <SkeletonLocationCard key={i} />)}
         </View>
       </View>
     );
   }
 
   if (isError) {
-    return (
-      <View style={[styles.container, styles.centered, { paddingTop: insets.top }]}>
-        <Text style={styles.errorIcon}>⚠️</Text>
-        <Text style={styles.errorTitle}>Failed to load</Text>
-        <Text style={styles.errorSubtitle}>Check your connection and try again.</Text>
-        <TouchableOpacity style={styles.retryButton} onPress={() => refetch()}>
-          <Text style={styles.retryText}>Retry</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    return <ErrorState onRetry={() => refetch()} paddingTop={insets.top} />;
   }
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Animated hide-on-scroll header */}
+      <StatusBar backgroundColor={Colors.surface} barStyle="light-content" />
       <Animated.View
         style={[styles.header, { height: headerHeight, transform: [{ translateY }] }]}
       >
@@ -209,4 +113,6 @@ export default function LocationListScreen({ navigation }: Props) {
       />
     </View>
   );
-}
+};
+
+export default LocationListScreen;

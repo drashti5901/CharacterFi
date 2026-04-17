@@ -7,6 +7,8 @@
 
 import React, { useCallback } from 'react';
 import {
+  Animated,
+  StatusBar,
   Text,
   TouchableOpacity,
   View,
@@ -19,36 +21,17 @@ import type { Character } from '../../../shared/types/api';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { removeFavourite, toggleFavouriteOptimistic } from '../../../store/favouritesSlice';
 import CharacterCard from '../../characters/components/CharacterCard';
+import FavouritesEmptyState from '../components/FavouritesEmptyState';
+import useScrollHeader from '../../../shared/hooks/useScrollHeader';
+import { Colors } from '../../../shared/utils/theme';
 import styles from './FavouritesScreen.styles';
 
 type Props = NativeStackScreenProps<FavouritesStackParamList, 'FavouritesList'>;
 
-// ── Empty state ───────────────────────────────────────────────────────────────
-
-function EmptyState() {
-  return (
-    <View style={styles.emptyContainer}>
-      <Text style={styles.emptyIcon}>🤍</Text>
-      <Text style={styles.emptyTitle}>No favourites yet</Text>
-      <Text style={styles.emptySubtitle}>
-        Characters you save will appear here, even without internet.
-      </Text>
-      <View style={styles.emptyHint}>
-        <Text style={styles.emptyHintText}>
-          Tap{' '}
-          <Text style={styles.emptyHintAccent}>❤️</Text>
-          {' '}on any character detail page to save them.
-        </Text>
-      </View>
-    </View>
-  );
-}
-
-// ── Main screen ───────────────────────────────────────────────────────────────
-
-export default function FavouritesScreen({ navigation }: Props) {
+const FavouritesScreen = ({ navigation }: Props) => {
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
+  const { translateY, onScroll, headerHeight } = useScrollHeader();
 
   const favourites = useAppSelector((s) => s.favourites.items);
   const count = favourites.length;
@@ -91,25 +74,35 @@ export default function FavouritesScreen({ navigation }: Props) {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Header */}
-      <View style={styles.header}>
+      <StatusBar backgroundColor={Colors.surface} barStyle="light-content" />
+      {/* Animated hide-on-scroll header */}
+      <Animated.View
+        style={[
+          styles.header,
+          { height: headerHeight, transform: [{ translateY }] },
+        ]}
+      >
         <Text style={styles.headerTitle}>Favourites</Text>
         <Text style={styles.headerSubtitle}>
           {count === 0
             ? 'No saved characters'
             : `${count} saved character${count === 1 ? '' : 's'} · available offline`}
         </Text>
-      </View>
+      </Animated.View>
 
       {/* List — reads only from Redux/SQLite, no API call */}
       <FlashList
         data={favourites}
         keyExtractor={(item) => String(item.id)}
         renderItem={renderItem}
-        ListEmptyComponent={EmptyState}
-        contentContainerStyle={styles.listContent}
+        ListEmptyComponent={FavouritesEmptyState}
+        contentContainerStyle={[styles.listContent, { paddingTop: headerHeight }]}
         showsVerticalScrollIndicator={false}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
       />
     </View>
   );
-}
+};
+
+export default FavouritesScreen;
